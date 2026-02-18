@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medam ji🥳</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Georgia", serif;
+        background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+        color: white;
+        text-align: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        transition: 1s;
+        scroll-behavior: smooth;
+      }
+      /* Floating Golden Sparkles */
+      .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: gold;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: floatSparkle 8s linear infinite;
+      }
+
+      @keyframes floatSparkle {
+        0% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-10vh);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        padding: 60px 20px;
+        animation: fadeIn 1.5s ease;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      h1,
+      h2 {
+        letter-spacing: 1px;
+      }
+
+      button {
+        padding: 12px 28px;
+        margin: 12px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff4e50, #ff9a9e);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.4s;
+      }
+      button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #ff4e50;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Cake */
+      .cake {
+        margin: 40px auto;
+        width: 220px;
+        position: relative;
+      }
+      .layer {
+        width: 220px;
+        height: 50px;
+        background: linear-gradient(pink, #ffb6c1);
+        border-radius: 12px;
+        margin: 6px auto;
+        display: none;
+        box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+      }
+      .candle {
+        width: 12px;
+        height: 40px;
+        background: #ffd700;
+        margin: auto;
+        position: relative;
+        display: none;
+      }
+      .flame {
+        width: 15px;
+        height: 15px;
+        background: orange;
+        border-radius: 50%;
+        position: absolute;
+        top: -15px;
+        left: -2px;
+        animation: flicker 0.5s infinite alternate;
+      }
+      @keyframes flicker {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.4);
+        }
+      }
+
+      /* Banner */
+      .banner {
+        font-size: 36px;
+        color: #ffcc00;
+        margin: 20px;
+        text-shadow: 0 0 20px gold;
+      }
+
+      /* Fireworks */
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+
+      /* Gallery */
+      .gallery img {
+        width: 160px;
+        border-radius: 20px;
+        margin: 12px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        transition: 0.5s;
+      }
+      /* Adjust 3rd image (landscape) */
+      
+
+      .gallery img:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="fireworks"></canvas>
+
+    <div class="container" id="s1">
+      <h1>🎉 It's Your Special Day Yeye! 🎉</h1>
+      <h2>Happy Birthday Medam jii🙈😍 ✨</h2>
+      <button onclick="next(1, 2)">Continue ➜</button>
+    </div>
+
+    <div class="container hidden" id="s2">
+      <h2>Do you want to see what I made? 🥹</h2>
+      <button onclick="next(2, 3)">Very excited to see 😍</button>
+      <button onclick="next(2, 3)">No 🥲</button>
+
+      <p>Kya karogi No Karke 💖</p>
+    </div>
+
+    <div class="container hidden" id="s3">
+      <h2>Have a look cutie 🙈</h2>
+      <button onclick="playMusic()">Play Melody 🎵</button>
+      <button onclick="next(3, 4)">Decorations 🎀</button>
+    </div>
+
+    <div class="container hidden" id="s4">
+      <div class="banner">🎉 Happy Birthday Baccha 🎉</div>
+      <button onclick="next(4, 5)">Let's Cut the Cake Cutie Ji 🎂</button>
+    </div>
+
+    <div class="container hidden" id="s5">
+      <div class="cake">
+        <div class="candle" id="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="layer" id="l1"></div>
+        <div class="layer" id="l2"></div>
+        <div class="layer" id="l3"></div>
+      </div>
+
+      <button onclick="buildCake()">Build Cake 🎂</button>
+      <button onclick="blow()">Blow Candle 🕯</button>
+
+      <div id="final" class="hidden">
+        <p style="max-width: 600px; margin: auto; font-size: 18px">
+          Medam ji,💖<br />
+          "Wish you a very Happy Happy Happy Happy Birthday Mra Baccha Mri
+          Cutiepie Mutto Mri Pyaari Momos and mera sabkuch I love you Bhot sara
+          hadd s zda vala mra baccha🙈🙈🙈🙈🙈 I know special sa kuch nhi kar
+          paya hu but Mene koshish ki hai kuch alag krne ki tumhre liya
+          😅🥹🥹🥹😅😅. Hn but yeh end nhi h surprise no.1 isko smj lo abhi or b
+          bache hai🤭🤭🤭 Once again a very happy birthday mra baccha and once
+          again I love you forever my
+          liggi🙈😍❤️😘❤️❤️😘❤️🙈🙈😍😍😍😍😍😍😍😍😍😍" 🎉💕
+        </p>
+
+        <div class="gallery">
+          <img src="IMG_0.JPG" />
+          <img src="IMG_1.JPG" />
+          <img src="IMG_2.JPG" />
+          <img src="IMG_3.JPG" />
+        </div>
+      </div>
+    </div>
+
+    <audio id="music" src="Happy Birthday To You Ji-(Mr-Jat.in).mp3"></audio>
+
+    <script>
+      function next(a, b) {
+        document.getElementById("s" + a).classList.add("hidden");
+        document.getElementById("s" + b).classList.remove("hidden");
+      }
+
+      function lightsOn() {
+        document.body.style.background =
+          "linear-gradient(135deg,#1f1c2c,#928dab)";
+      }
+
+      function playMusic() {
+        document.getElementById("music").play();
+      }
+
+      function buildCake() {
+        document.getElementById("l1").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("l2").style.display = "block";
+        }, 500);
+        setTimeout(() => {
+          document.getElementById("l3").style.display = "block";
+        }, 1000);
+        setTimeout(() => {
+          document.getElementById("candle").style.display = "block";
+        }, 1500);
+      }
+
+      function blow() {
+        document.getElementById("flame").style.display = "none";
+        document.getElementById("final").classList.remove("hidden");
+        startFireworks();
+      }
+
+      /* Fireworks Animation */
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let particles = [];
+
+      function startFireworks() {
+        setInterval(() => {
+          for (let i = 0; i < 50; i++) {
+            particles.push({
+              x: Math.random() * canvas.width,
+              y: (Math.random() * canvas.height) / 2,
+              radius: Math.random() * 3,
+              color: "hsl(" + Math.random() * 360 + ",100%,50%)",
+              speedX: (Math.random() - 0.5) * 5,
+              speedY: (Math.random() - 0.5) * 5,
+            });
+          }
+        }, 800);
+        animate();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.x += p.speedX;
+          p.y += p.speedY;
+        });
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>
